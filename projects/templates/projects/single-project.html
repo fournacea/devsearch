@@ -2,6 +2,12 @@
 
 {% block content %}
     <h1>Hello, Adam!</h1>
-    <p>Project #: {{id}}</p>
+
+    <li>Title: {{ project_obj.title | title }}</li>
+  
+    <hr>
+
+    <a href="{% url 'projects'%}">Back to all <em>projects</em></a>
+
 
 {% endblock content %}
