@@ -1,9 +1,27 @@
 {% extends "main.html" %}
 
 {% block content %}
-    <h1>Hello, Adam!</h1>
+    <h1>Individual Project</h1>
 
-    <li>Title: {{ project_obj.title | title }}</li>
+    <ul>
+        <li>Title: {{ project.title | title }}</li>
+        <li>Description: {{ project.description | title }}</li>
+        <li>Created: {{ project.created | date:'Y-m-d H:i'}}</li>
+
+        <br>
+        
+        {% if project.demo_link %}
+        <li>Demo Link: {{ project.demo_link }}</li>
+        {% endif %}
+
+        {% if project.source_link %}
+        <li>Source Link: {{ project.source_link }}</li>
+        {% endif %}
+        
+
+        
+        
+    </ul>
   
     <hr>
 

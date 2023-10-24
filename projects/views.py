@@ -1,39 +1,35 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, HttpResponseRedirect
+from .models import Project
+from .forms import ProjectForm
 
 
-project_list = [
-    {
-        'id': '1',
-        'title': 'Ecommerce Website',
-        'description': 'Sell things and stuff',
-    },
-        {
-        'id': '2',
-        'title': 'Portfolio Website',
-        'description': 'See things I built and stuff',
-    },
-        {
-        'id': '3',
-        'title': 'social Network',
-        'description': 'Chat with friends',
-    }
-]
+def create_project(request):
+    form = ProjectForm()
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('../projects')
+    
+    ctx = {'form': form}
+
+    return render(request, 'projects/project-form.html', ctx)
+
 
 def projects(request):
-    msg = "Hello!"
-    msg2 = "You are on the projects page"
-    ctx = {'message1': msg, 'message2' : msg2, 'projects': project_list}
+    projects = Project.objects.all()
+
+    ctx = {'projects': projects}
+
     return render(request, 'projects/projects.html', ctx)
 
 
 def project(request, pk):
-    
-    project_obj = None
-    for item in project_list:
-        if item['id'] == pk:
-            project_obj = item
+    project_obj = Project.objects.get(id=pk)
 
-    ctx = {'projects': project_list, 'project_obj': project_obj ,'hello': 'world'}
+    ctx = {'project': project_obj}
 
     return render(request, 'projects/single-project.html', ctx)
+
