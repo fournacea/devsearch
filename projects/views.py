@@ -18,6 +18,22 @@ def create_project(request):
     return render(request, 'projects/project-form.html', ctx)
 
 
+# def delete_project(request, pk):
+#     project = Project.object.get(id = pk)
+#     form = ProjectForm(instance = project)
+
+#     if request.method == 'POST':
+#         form = ProjectForm(request.POST, instance = project)
+
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('../projects')
+    
+#     ctx = {'form': form}
+
+#     return render(request, 'projects/project-form.html', ctx)
+
+
 def projects(request):
     projects = Project.objects.all()
 
@@ -32,4 +48,20 @@ def project(request, pk):
     ctx = {'project': project_obj}
 
     return render(request, 'projects/single-project.html', ctx)
+
+
+# def update_project(request, pk):
+#     project = Project.object.get(id = pk)
+#     form = ProjectForm(instance = project)
+
+#     if request.method == 'POST':
+#         form = ProjectForm(request.POST, instance = project)
+
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('../projects')
+    
+#     ctx = {'form': form}
+
+#     return render(request, 'projects/project-form.html', ctx)
 
