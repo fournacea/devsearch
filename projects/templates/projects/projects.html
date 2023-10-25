@@ -8,9 +8,11 @@
     <h2>Projects</h2>
     
     {% for project in projects %}
-        <li>Project ID: {{ project.id }}</li>
         <li>Title: <a href="{% url 'project' project.id %}">{{ project.title | title }}</a></li>
         <li>Description: {{ project.description }}</li>
+        <br>
+        <li>UPDATE <a href="{% url 'update-project' project.id %}">"{{ project.title | title }}"</a></li> 
+        <li>DELETE <a href="{% url 'delete-project' project.id %}">"{{ project.title | title }}"</a></li> 
         <hr>
     
     {% endfor %}

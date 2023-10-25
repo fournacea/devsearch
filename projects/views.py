@@ -18,20 +18,16 @@ def create_project(request):
     return render(request, 'projects/project-form.html', ctx)
 
 
-# def delete_project(request, pk):
-#     project = Project.object.get(id = pk)
-#     form = ProjectForm(instance = project)
-
-#     if request.method == 'POST':
-#         form = ProjectForm(request.POST, instance = project)
-
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('../projects')
+def delete_project(request, pk):
+    project = Project.objects.get(id = pk)
     
-#     ctx = {'form': form}
+    if request.method == 'POST':
+        project.delete()
+        return HttpResponseRedirect('../projects')
 
-#     return render(request, 'projects/project-form.html', ctx)
+    ctx = {'object': project}
+
+    return render(request, 'projects/delete-template.html', ctx)
 
 
 def projects(request):
@@ -50,18 +46,18 @@ def project(request, pk):
     return render(request, 'projects/single-project.html', ctx)
 
 
-# def update_project(request, pk):
-#     project = Project.object.get(id = pk)
-#     form = ProjectForm(instance = project)
+def update_project(request, pk):
+    project = Project.objects.get(id = pk)
+    form = ProjectForm(instance = project)
 
-#     if request.method == 'POST':
-#         form = ProjectForm(request.POST, instance = project)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance = project)
 
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('../projects')
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('../projects')
     
-#     ctx = {'form': form}
+    ctx = {'form': form}
 
-#     return render(request, 'projects/project-form.html', ctx)
+    return render(request, 'projects/project-form.html', ctx)
 
