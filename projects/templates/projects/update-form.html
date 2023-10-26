@@ -4,7 +4,7 @@
 
     <h1>Project Form</h1>
 
-    <form method="POST" action="{% url 'create-project' %}">
+    <form method="POST" action="{% url 'update-project' project.id %}">
 
         {% csrf_token %}
         
@@ -13,8 +13,11 @@
             {{ field }}  
         {% endfor %}
 
+        <a href="{% url 'projects' %}">Cancel</a>
         <input type="submit">
 
     </form>
+
+    
 
 {% endblock content %}

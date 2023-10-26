@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
+from django.urls import reverse
 from .models import Project
 from .forms import ProjectForm
 
@@ -11,11 +12,11 @@ def create_project(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('../projects')
+            return HttpResponseRedirect(reverse('projects'))
     
     ctx = {'form': form}
 
-    return render(request, 'projects/project-form.html', ctx)
+    return render(request, 'projects/create-form.html', ctx)
 
 
 def delete_project(request, pk):
@@ -23,7 +24,7 @@ def delete_project(request, pk):
     
     if request.method == 'POST':
         project.delete()
-        return HttpResponseRedirect('../projects')
+        return HttpResponseRedirect(reverse('projects'))
 
     ctx = {'object': project}
 
@@ -39,7 +40,7 @@ def projects(request):
 
 
 def project(request, pk):
-    project_obj = Project.objects.get(id=pk)
+    project_obj = Project.objects.get(id = pk)
 
     ctx = {'project': project_obj}
 
@@ -52,12 +53,11 @@ def update_project(request, pk):
 
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance = project)
-
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('../projects')
+            return HttpResponseRedirect(reverse('projects'))
     
-    ctx = {'form': form}
-
-    return render(request, 'projects/project-form.html', ctx)
+    ctx = {'form': form, 'project': project}
+ 
+    return render(request, 'projects/update-form.html', ctx)
 
